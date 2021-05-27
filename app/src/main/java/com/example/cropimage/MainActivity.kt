@@ -109,12 +109,16 @@ class MainActivity : AppCompatActivity() {
 
             val result: CropImage.ActivityResult = CropImage.getActivityResult(data)
             if (resultCode == RESULT_OK) {
+                binding.imageView.refreshDrawableState()
+                binding.imageView.invalidate()
+
                 binding.imageView.setImageURI(result.uri)
                 Toast.makeText(this, "image update !!!", Toast.LENGTH_SHORT).show()
                 binding.resultColor.visibility = View.VISIBLE
                 binding.colorView.visibility = View.VISIBLE
                 binding.idDefault.visibility = View.VISIBLE
 
+                colorMania()
             }
         }
     }
@@ -123,7 +127,6 @@ class MainActivity : AppCompatActivity() {
         CropImage.activity(uriImage)
             .setGuidelines(CropImageView.Guidelines.ON)
             .setMultiTouchEnabled(true)
-            .setBackgroundColor(resources.getColor(android.R.color.darker_gray))
             .start(this)
     }
 
